@@ -144,8 +144,8 @@ class AVL():
             self.balance = 0
 
     def delete(self, key):
-        print("tentando deletar no nó ", self.node.key)
         if self.node is not None:
+            print("tentando deletar no nó ", self.node.key)
             if self.node.key == key:
                 print("deletando o nó ", key)
                 # verifica se é um nó folha
@@ -173,9 +173,9 @@ class AVL():
                 self.rebalance()
                 return
             # se não achou o nó continua procurando
-            elif key < self.node.key: 
-                self.node.left.delete(key)  
-            elif key > self.node.key: 
+            elif key < self.node.key:
+                self.node.left.delete(key)
+            elif key > self.node.key:
                 self.node.right.delete(key)
             else:
                 print("nó", key, "não encontrado")
@@ -185,7 +185,7 @@ class AVL():
             return
 
     def logicalSuccessor(self, node):
-        ''' 
+        '''
             Acha o sucessor lógico do nó a ser removido
         '''
         node = node.right.node
@@ -199,10 +199,32 @@ class AVL():
                     node = node.left.node
         return node
 
+    def show(self):
+        self.inOrder(self.node)
+        pass
+
+    def inOrder(self, node):
+        if node is not None:
+            print("(", end="")
+            print(node.key, end="")
+            self.inOrder(node.left.node)
+            self.inOrder(node.right.node)
+            print(")", end="")
+        print('.', end="")
+        pass
+
+
 if __name__ == "__main__":
-    l = [22, 10, 36, 44, 33, 46, 45, 13, 1]
+    numbers = [22, 10, 36, 44, 33, 46, 45, 13, 1]
     tree = AVL()
-    for i in l:
+    for i in numbers:
         tree.insert(i)
+        print("=="*20)
+    tree.show()
+    numbers = [33, 1, 0, 2, 46]
+    for i in numbers:
+        tree.delete(i)
+        print("=="*20)
+    tree.show()
 
     pass
