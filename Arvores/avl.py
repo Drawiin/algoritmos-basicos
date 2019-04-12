@@ -23,25 +23,6 @@ class AVL():
         self.hight = -1
         self.balance = 0
 
-    def getHight(self):
-        '''
-            Retorna a altura da árvore ou
-            sub-árvore
-        '''
-        if self.node is not None:
-            return self.hight
-        else:
-            return 0
-
-    def isLeaf(self):
-        '''
-            Verifica se a sub-árvore é um folha
-        '''
-        if self.hight == 0:
-            return True
-        else:
-            return False
-
     def insert(self, key):
         '''
             Insere um elemnto na árvore
@@ -130,19 +111,26 @@ class AVL():
         A.right.node = T
 
     def updadateHight(self, recurse=True):
+        '''
+            Calcula a altura de um árvore ou sub-árvore
+        '''
         if self.node is not None:
             if recurse:
                 if self.node.left is not None:
                     self.node.left.updadateHight()
                 if self.node.right is not None:
                     self.node.right.updadateHight()
-
-            self.height = max(self.node.left.height,
-                              self.node.right.height) + 1
+            # calcula a altura da árvore
+            self.hight = max(self.node.left.hight,
+                             self.node.right.hight) + 1
+        # se a sub árvore for vazia a sua altura é -1
         else:
-            self.height = -1
+            self.hight = -1
 
     def updateBalance(self, recurse=True):
+        '''
+            Atualiza o fator de balanceamento da árvore
+        '''
         if self.node is not None:
             if recurse:
                 if self.node.left is not None:
@@ -150,14 +138,14 @@ class AVL():
                 if self.node.right is not None:
                     self.node.right.updateBalance()
 
-            self.balance = self.node.right.height - self.node.left.height
-        else: 
+            self.balance = self.node.right.hight - self.node.left.hight
+        # se a subárvore for vazia seu fator de balanceamento é 0
+        else:
             self.balance = 0
-
 
     def delete(self, key):
         print("tentando deletar no nó ", self.node.key)
-        if self.node is not None: 
+        if self.node is not None:
             if self.node.key == key:
                 print("deletando o nó ", key)
                 # verifica se é um nó folha
@@ -165,16 +153,16 @@ class AVL():
                     self.node = None
 
                 # verifica se tem apenas uma sub-árvore
-                elif self.node.left.node is None: 
+                elif self.node.left.node is None:
                     self.node = self.node.right.node
-                elif self.node.right.node is None: 
+                elif self.node.right.node is None:
                     self.node = self.node.left.node
 
                 # verifica se o nó tem duas sub-árvores
                 else:
                     replacement = self.logicalSuccessor(self.node)
                     if replacement is not None:
-                        print("sucessor lógico achado ",key, " -> "replacement.key)
+                        print("sucessor lógico achado ", key, " -> ", replacement.key)
                         self.node.key = replacement.key 
 
                         # subistituiu agora deleta
@@ -189,87 +177,32 @@ class AVL():
                 self.node.left.delete(key)  
             elif key > self.node.key: 
                 self.node.right.delete(key)
+            else:
+                print("nó", key, "não encontrado")
 
             self.rebalance()
-        else: 
-            return 
+        else:
+            return
 
-    def logical_successor(self, node):
+    def logicalSuccessor(self, node):
         ''' 
             Acha o sucessor lógico do nó a ser removido
         '''
-        node = node.right.node  
-        if node is not None: # just a sanity check  
-            
+        node = node.right.node
+        if node is not None:
+            # procura o sucessor
             while node.left is not None:
-                debug("LS: traversing: " + str(node.key))
-                if node.left.node == None: 
-                    return node 
-                else: 
-                    node = node.left.node  
-        return node 
+                print("Procurando o sucessor de", node.key)
+                if node.left.node is None:
+                    return node
+                else:
+                    node = node.left.node
+        return node
 
-    def check_balanced(self):
-        if self is None or self.node is None: 
-            return True
-        
-        # We always need to make sure we are balanced 
-        self.update_heights()
-        self.update_balances()
-        return ((abs(self.balance) < 2) and self.node.left.check_balanced() and self.node.right.check_balanced())  
-        
-    def inorder_traverse(self):
-        if self.node == None:
-            return [] 
-        
-        inlist = [] 
-        l = self.node.left.inorder_traverse()
-        for i in l: 
-            inlist.append(i) 
-
-        inlist.append(self.node.key)
-
-        l = self.node.right.inorder_traverse()
-        for i in l: 
-            inlist.append(i) 
-    
-        return inlist 
-
-    def display(self, level=0, pref=''):
-        '''
-        Display the whole tree. Uses recursive def.
-        TODO: create a better display using breadth-first search
-        '''        
-        self.update_heights()  # Must update heights before balances 
-        self.update_balances()
-        if(self.node != None): 
-            print ('-' * level * 2, pref, self.node.key, "[" + str(self.height) + ":" + str(self.balance) + "]", 'L' if self.is_leaf() else ' '    )
-            if self.node.left != None: 
-                self.node.left.display(level + 1, '<')
-            if self.node.left != None:
-                self.node.right.display(level + 1, '>')
-
-# Usage example
-if __name__ == "__main__": 
-    a = AVLTree()
-    print ("----- Inserting -------")
-    #inlist = [5, 2, 12, -4, 3, 21, 19, 25]
-    inlist = [7, 5, 2, 6, 3, 4, 1, 8, 9, 0]
-    for i in inlist: 
-        a.insert(i)
-         
-    a.display()
-    
-    print ("----- Deleting -------")
-    a.delete(3)
-    a.delete(4)
-    # a.delete(5) 
-    a.display()
-    
-    print ()
-    print ("Input            :", inlist )
-    print ("deleting ...       ", 3)
-    print ("deleting ...       ", 4)
-    print ("Inorder traversal:", a.inorder_traverse())
+if __name__ == "__main__":
+    l = [22, 10, 36, 44, 33, 46, 45, 13, 1]
+    tree = AVL()
+    for i in l:
+        tree.insert(i)
 
     pass
