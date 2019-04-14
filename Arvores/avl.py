@@ -44,15 +44,6 @@ class AVL():
 
         self.rebalance()
 
-    def isDesbalance(self):
-        '''
-            Verifica se uma sub-árvore está desbalanceada
-        '''
-        if abs(self.balance) > 1:
-            return True
-        else:
-            return False
-
     def rebalance(self):
         '''
             Rebalanceia a árvore
@@ -61,7 +52,7 @@ class AVL():
         self.updadateHight(False)
         self.updateBalance(False)
         # verifica se está desbalanceada
-        while self.isDesbalance():
+        while abs(self.balance) > 1:
             # verifica se está desbalanceada a esquerda
             if self.balance < -1:
                 # verifica se é um desbalanceamento esquerda direita
@@ -199,32 +190,78 @@ class AVL():
                     node = node.left.node
         return node
 
-    def show(self):
+    def showPreOrder(self):
+        self.preOrder(self.node)
+
+    def showPosOrder(self):
+        self.posOrder(self.node)
+
+    def showInOrder(self):
         self.inOrder(self.node)
-        pass
 
     def inOrder(self, node):
-        if node is not None:
+        if node is None:
+            print("@", end="")
+        else:
             print("(", end="")
-            print(node.key, end="")
             self.inOrder(node.left.node)
+            print(node.key, end="")
             self.inOrder(node.right.node)
             print(")", end="")
-        print('.', end="")
-        pass
+
+    def preOrder(self, node):
+        if node is None:
+            print("@", end="")
+        else:
+            print("(", end="")
+            print(node.key, end="")
+            self.preOrder(node.left.node)
+            self.preOrder(node.right.node)
+            print(")", end="")
+
+    def posOrder(self, node):
+        if node is None:
+            print("@", end="")
+        else:
+            print("(", end="")
+            self.posOrder(node.left.node)
+            self.posOrder(node.right.node)
+            print(node.key, end="")
+            print(")", end="")
 
 
 if __name__ == "__main__":
+    print("\n\n----------------------INICIO-------------------------\n")
     numbers = [22, 10, 36, 44, 33, 46, 45, 13, 1]
     tree = AVL()
+
     for i in numbers:
         tree.insert(i)
         print("=="*20)
-    tree.show()
+
+    print("\n", "*"*20, "Em ordem", "*"*20)
+    tree.showInOrder()
+
+    print("\n", "*"*20, "Em pós ordem", "*"*20)
+    tree.showPosOrder()
+
+    print("\n", "*"*20, "Em pré ordem", "*"*20)
+    tree.showPreOrder()
+    print("")
+
     numbers = [33, 1, 0, 2, 46]
+
     for i in numbers:
         tree.delete(i)
         print("=="*20)
-    tree.show()
 
-    pass
+    print("\n", "*"*20, "Em ordem", "*"*20)
+    tree.showInOrder()
+
+    print("\n", "*"*20, "Em pós ordem", "*"*20)
+    tree.showPosOrder()
+
+    print("\n", "*"*20, "Em pré ordem", "*"*20)
+    tree.showPreOrder()
+
+    print("\n\n----------------------FIM-------------------------\n")
