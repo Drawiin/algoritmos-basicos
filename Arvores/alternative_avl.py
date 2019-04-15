@@ -1,17 +1,18 @@
 class Noh:
-    def __init__(self, v, pai):
-        self.campo = v
+    def __init__(self, valor, pai):
+        self.campo = valor
         self.subEsq = None
         self.subDir = None
         self.pai = pai
         self.fb = 0
 
+
 class BST:
     def __init__(self):
         self.raiz = None
 
-    def setRaiz(self, v, pai):
-        self.raiz = Noh(v, None)
+    def setRaiz(self, valor, pai):
+        self.raiz = Noh(valor, None)
 
     def insereVetor(self, vetor):
         for i in vetor:
@@ -24,13 +25,13 @@ class BST:
             self.insereNoh(self.raiz, campo, self.raiz)
 
     def insereNoh(self, nohAtual, campo, pai):
-        if (campo < nohAtual.campo):
-            if(nohAtual.subEsq):
+        if campo < nohAtual.campo:
+            if nohAtual.subEsq is not None:
                 self.insereNoh(nohAtual.subEsq, campo, nohAtual)
             else:
                 nohAtual.subEsq = Noh(campo, nohAtual)
-        elif(campo > nohAtual.campo):
-            if(nohAtual.subDir):
+        elif campo > nohAtual.campo:
+            if nohAtual.subDir is not None:
                 self.insereNoh(nohAtual.subDir, campo, nohAtual)
             else:
                 nohAtual.subDir = Noh(campo, nohAtual)
@@ -42,11 +43,6 @@ class BST:
             nohAtual = nohAtual.subEsq
         return nohAtual
 
-    def maximo(self, nohAtual):
-        while nohAtual.subDir is not None:
-            nohAtual = nohAtual.subDir
-        return nohAtual
-
     def sucessor(self, nohAtual):
         if nohAtual.subDir is not None:
             return self.minimo(nohAtual.subDir)
@@ -55,47 +51,38 @@ class BST:
             nohAtual = y
             y = y.pai
         return y
-    
-    def antecessor(self, nohAtual):
-        if nohAtual.subEsq is not None:
-            return self.maximo(nohAtual.subEsq)
-        y = nohAtual.pai
-        while y is not None and nohAtual is y.subEsq:
-            nohAtual = y
-            y = y.pai
-        return y
 
     def removeAux(self, campo):
         temp = self.busca(campo)
-        if temp==None:
+        if temp is None:
             print("Valor não existe na raiz")
         else:
-            self.remove(temp) 
+            self.remove(temp)
 
     def remove(self, nohAtual):
-        if nohAtual.subEsq == None and nohAtual.subDir == None: #folha
-           if nohAtual.pai.subEsq !=None:
-              if nohAtual.pai.subEsq.campo == nohAtual.campo:
-                  nohAtual.pai.subEsq = None
-           if nohAtual.pai.subDir !=None:
-              if nohAtual.pai.subDir.campo == nohAtual.campo:
-                  nohAtual.pai.subDir = None
-        elif nohAtual.subEsq != None and nohAtual.subDir == None: # tem só filho esquerdo
-              if nohAtual.pai.subEsq != None:   # o pai tem filho esquerdo? 
-                 if nohAtual.pai.subEsq.campo == nohAtual.campo: # ele é o filho esquerdo ? XD
-                    nohAtual.subEsq.pai = nohAtual.pai # pai dele vira pai do filho dele 
-                    nohAtual.pai.subEsq = nohAtual.subEsq # pai aponta para o filho 
-              if nohAtual.pai.subDir != None:   # o pai tem filho direito?
-                 if nohAtual.pai.subDir.campo == nohAtual.campo: # ele é o filho direito?
-                    nohAtual.subEsq.pai = nohAtual.pai # pai dele vira pai do filho dele
-                    nohAtual.pai.subDir = nohAtual.subEsq # pai dele aponta para o filho dele
-        elif nohAtual.subDir != None  and nohAtual.subEsq == None: # tem só filho direito
-              if nohAtual.pai.subEsq != None:
-                 if nohAtual.pai.subEsq.campo == nohAtual.campo:
-                    nohAtual.subDir.pai = nohAtual.pai  
+        if nohAtual.subEsq is None and nohAtual.subDir is None: #folha
+            if nohAtual.pai.subEsq is not None:
+                if nohAtual.pai.subEsq.campo == nohAtual.campo:
+                    nohAtual.pai.subEsq = None
+            if nohAtual.pai.subDir is not None:
+                if nohAtual.pai.subDir.campo == nohAtual.campo:
+                    nohAtual.pai.subDir = None
+        elif nohAtual.subEsq is not None and nohAtual.subDir is None: # tem só filho esquerdo
+            if nohAtual.pai.subEsq is not None:   # o pai tem filho esquerdo?
+                if nohAtual.pai.subEsq.campo == nohAtual.campo: # ele é o filho esquerdo ? XD
+                    nohAtual.subEsq.pai = nohAtual.pai  # pai dele vira pai do filho dele
+                    nohAtual.pai.subEsq = nohAtual.subEsq  # pai aponta para o filho
+            if nohAtual.pai.subDir is not None:  # o pai tem filho direito?
+                if nohAtual.pai.subDir.campo == nohAtual.campo:  # ele é o filho direito?
+                    nohAtual.subEsq.pai = nohAtual.pai  # pai dele vira pai do filho dele
+                    nohAtual.pai.subDir = nohAtual.subEsq  # pai dele aponta para o filho dele
+        elif nohAtual.subDir is not None and nohAtual.subEsq is None: # tem só filho direito
+            if nohAtual.pai.subEsq != None:
+                if nohAtual.pai.subEsq.campo == nohAtual.campo:
+                    nohAtual.subDir.pai = nohAtual.pai
                     nohAtual.pai.subEsq = nohAtual.subDir
-              if nohAtual.pai.subDir != None:
-                 if nohAtual.pai.subDir.campo == nohAtual.campo:
+            if nohAtual.pai.subDir is not None:
+                if nohAtual.pai.subDir.campo == nohAtual.campo:
                     nohAtual.subDir.pai = nohAtual.pai 
                     nohAtual.pai.subDir = nohAtual.subDir
         else:
