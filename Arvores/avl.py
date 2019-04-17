@@ -23,7 +23,7 @@ class AVL():
         self.hight = -1
         self.balance = 0
 
-    def insert(self, key):
+    def insere(self, key):
         '''
             Insere um elemnto na árvore
         '''
@@ -36,9 +36,9 @@ class AVL():
         # se ela não for continua na busca para inserção binária
         else:
             if key < self.node.key:
-                self.node.left.insert(key)
+                self.node.left.insere(key)
             elif key > self.node.key:
-                self.node.right.insert(key)
+                self.node.right.insere(key)
             else:
                 print("Elemento já está na árvore")
 
@@ -190,42 +190,42 @@ class AVL():
                     node = node.left.node
         return node
 
-    def showPreOrder(self):
-        self.preOrder(self.node)
+    def showpreOrdem(self):
+        self.preOrdem(self.node)
 
-    def showPosOrder(self):
-        self.posOrder(self.node)
+    def showposOrdem(self):
+        self.posOrdem(self.node)
 
-    def showInOrder(self):
-        self.inOrder(self.node)
+    def showemOrdem(self):
+        self.emOrdem(self.node)
 
-    def inOrder(self, node):
+    def emOrdem(self, node):
         if node is None:
             print("@", end="")
         else:
             print("(", end="")
-            self.inOrder(node.left.node)
+            self.emOrdem(node.left.node)
             print(node.key, end="")
-            self.inOrder(node.right.node)
+            self.emOrdem(node.right.node)
             print(")", end="")
 
-    def preOrder(self, node):
+    def preOrdem(self, node):
         if node is None:
             print("@", end="")
         else:
             print("(", end="")
             print(node.key, end="")
-            self.preOrder(node.left.node)
-            self.preOrder(node.right.node)
+            self.preOrdem(node.left.node)
+            self.preOrdem(node.right.node)
             print(")", end="")
 
-    def posOrder(self, node):
+    def posOrdem(self, node):
         if node is None:
             print("@", end="")
         else:
             print("(", end="")
-            self.posOrder(node.left.node)
-            self.posOrder(node.right.node)
+            self.posOrdem(node.left.node)
+            self.posOrdem(node.right.node)
             print(node.key, end="")
             print(")", end="")
 
@@ -236,17 +236,17 @@ if __name__ == "__main__":
     tree = AVL()
 
     for i in numbers:
-        tree.insert(i)
+        tree.insere(i)
         print("=="*20)
 
     print("\n", "*"*20, "Em ordem", "*"*20)
-    tree.showInOrder()
+    tree.showemOrdem()
 
     print("\n", "*"*20, "Em pós ordem", "*"*20)
-    tree.showPosOrder()
+    tree.showposOrdem()
 
     print("\n", "*"*20, "Em pré ordem", "*"*20)
-    tree.showPreOrder()
+    tree.showpreOrdem()
     print("")
 
     numbers = [33, 1, 0, 2, 46]
@@ -256,12 +256,12 @@ if __name__ == "__main__":
         print("=="*20)
 
     print("\n", "*"*20, "Em ordem", "*"*20)
-    tree.showInOrder()
+    tree.showemOrdem()
 
     print("\n", "*"*20, "Em pós ordem", "*"*20)
-    tree.showPosOrder()
+    tree.showposOrdem()
 
     print("\n", "*"*20, "Em pré ordem", "*"*20)
-    tree.showPreOrder()
+    tree.showpreOrdem()
 
     print("\n\n----------------------FIM-------------------------\n")
