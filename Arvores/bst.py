@@ -16,11 +16,65 @@ class AVL:
         if self.root is None:
             print("Inserindo", key, "na raiz")
             self.root = Node(key, self)
-            self.calculeBalance(self.root.balance, self.root)
         else:
             self.insertAux(key, self.root)
 
-    def calculeHight(self, node):
+    def insertAux(self, key, node):
+        if key < node.key:
+            if node.left is None:
+                node.left = Node(key, node)
+            else:
+                self.insertAux(key, node.left)
+                print("Inserindo {} a direita de {}".format(key, node.key))
+        elif key > node.key:
+            if node.right is None:
+                node.right = Node(key, node)
+                print("Inserindo {} a direita de {}".format(key, node.key))
+            else:
+                self.insertAux(key, node.right)
+        else:
+            print("O valor", key, "já está na arvore")
+
+    def delet(self, key):
+        self.deletAux(self.root, key)
+
+    def deletAux(self, node, key):
+        if key < node.key:
+            self.deletAux(node.left, key)
+        elif key > node.key:
+            self.deletAux(node.right, key)
+        elif node.key == key:
+            if
+        else:
+            print("{} não está na árvore".format(key))
+
+    def inOrder(self):
+        if self.root is None:
+            print("Impossivel imprimir arvore vazia")
+        else:
+            self.inOrderAux(self.root)
+
+    def inOrderAux(self, node):
+        if node is None:
+            print("@", end="")
+        else:
+            print("(", end="")
+            self.inOrderAux(node.left)
+            print("[{}]".format(node.key), end="")
+            self.inOrderAux(node.right)
+            print(")", end="")
+
+
+if __name__ == "__main__":
+    tree = AVL()
+    for i in [1, 2 , 3 ,4 ,5 ,6]:
+        print("--"*20)
+        print("inserindo o valor ", i)
+        tree.insert(i)
+    print()
+    tree.inOrder()
+
+"""     def calculeHight(self, node):
         left, right = 0, 0
         if node.left is None and node.right is None:
             pass
@@ -42,14 +96,14 @@ class AVL:
         else:
             left = 0
 
-        if node.dad != self :
-            node.hight = max(hight, node.hight)
+        if node.dad != self:
+            node.hight = max(left, right)
             node.balance = right - left
             self.balance(node)
             # print(node.key, right, left)
-            self.calculeBalance(hight + 1, node.dad)
+            self.calculeBalance(hight, node.dad)
         else:
-            node.hight = max(hight, node.hight)
+            node.hight = max(left, right)
             node.balance = right - left
             self.balance(node)
             # print(node.key, right, left)
@@ -67,8 +121,7 @@ class AVL:
                     self.leftRotate(node.right)
                     self.calculeHight(node.right)
                 self.rightRotate(node)
-                self.calculeHight(node)
-         
+        self.calculeHight(node)
 
     def rightRotate(self, node):
         A = node
@@ -100,46 +153,32 @@ class AVL:
             if T is not None:
                 T.dad = A
 
-
-
-    def insertAux(self, key, node):
-        print("tentando inserir", key, "no nó", node.key)
-        if key < node.key:
-            if node.left is None:
-                node.left = Node(key, node)
-                self.calculeBalance(node.left.balance, node.left)
-            else:
-                self.insertAux(key, node.left)
-        elif key > node.key:
-            if node.right is None:
-                node.right = Node(key, node)
-                self.calculeBalance(node.right.balance, node.right)
-            else:
-                self.insertAux(key, node.right)
+    def leftRotate(self, node): 
+        A = node
+        B = node.right
+        T = B.left
+        print("Rotação a esquerda de", A.key, "ao redor de", B.key)
+        if A.dad == self:
+            self.root = B
+            B.dad = A.dad
+            B.left = A
+            A.dad = B
+            A.right = T
+            if T is not None:
+                T.dad = A
+        elif A.dad.key > A.key:
+            A.dad.right = B
+            B.dad = A.dad
+            B.left = A
+            A.dad = B
+            A.right = T
+            if T is not None:
+                T.dad = A
         else:
-            print("O valor", key, "já está na arvore")
-
-    def inOrder(self):
-        if self.root is None:
-            print("Impossivel imprimir arvore vazia")
-        else:
-            self.inOrderAux(self.root)
-
-    def inOrderAux(self, node):
-        if node is None:
-            print("@", end="")
-        else:
-            print("(", end="")
-            self.inOrderAux(node.left)
-            print("[key:{} b:{} h:{}]".format(node.key, node.balance, node.hight,), end="")
-            self.inOrderAux(node.right)
-            print(")", end="")
-
-
-if __name__ == "__main__":
-    tree = AVL()
-    for i in [3, 2, 1]:
-        tree.insert(i)
-    print()
-    # tree.calculeHight(tree.root)
-    tree.inOrder()
+            A.dad.left = B
+            B.dad = A.dad
+            B.left = A
+            A.dad = B
+            A.right = T
+            if T is not None:
+                T.dad = A"""
