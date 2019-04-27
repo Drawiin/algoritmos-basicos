@@ -44,6 +44,10 @@ class AVL():
 
         self.rebalance()
 
+    def insereVetor(self, array):
+        for i in array:
+            self.insere(i)
+
     def rebalance(self):
         '''
             Rebalanceia a árvore
@@ -235,9 +239,7 @@ if __name__ == "__main__":
     numbers = [22, 10, 36, 44, 33, 46, 45, 13, 1]
     tree = AVL()
 
-    for i in numbers:
-        tree.insere(i)
-        print("=="*20)
+    tree.insereVetor(numbers)
 
     print("\n", "*"*20, "Em ordem", "*"*20)
     tree.showemOrdem()
