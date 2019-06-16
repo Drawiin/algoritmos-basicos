@@ -1,4 +1,5 @@
 class Node:
+    RED = True
     BLACK = False
 
     def __init__(self, key, color=RED):
@@ -59,7 +60,7 @@ class RedBlackTree:
         self.insert(Node(key))
 
     def insert(self, x):
-        self.__insert_helper(x)
+        self.insertHelper(x)
 
         x.color = Node.RED
         while x != self.root and x.parent.color == Node.RED:
@@ -73,10 +74,10 @@ class RedBlackTree:
                 else:
                     if x == x.parent.right:
                         x = x.parent
-                        self.__left_rotate(x)
+                        self.leftRotate(x)
                     x.parent.color = Node.BLACK
                     x.parent.parent.color = Node.RED
-                    self.__right_rotate(x.parent.parent)
+                    self.rightRotate(x.parent.parent)
             else:
                 y = x.parent.parent.left
                 if y and y.color == Node.RED:
@@ -87,10 +88,10 @@ class RedBlackTree:
                 else:
                     if x == x.parent.left:
                         x = x.parent
-                        self.__right_rotate(x)
+                        self.rightRotate(x)
                     x.parent.color = Node.BLACK
                     x.parent.parent.color = Node.RED
-                    self.__left_rotate(x.parent.parent)
+                    self.leftRotate(x.parent.parent)
         self.root.color = Node.BLACK
 
     def delete(self, z):
@@ -116,7 +117,7 @@ class RedBlackTree:
             z.key = y.key
 
         if y.color == Node.BLACK:
-            self.__delete_fixup(x)
+            self.deleteFixup(x)
 
         self.size -= 1
         return y
@@ -161,7 +162,7 @@ class RedBlackTree:
             yield x.key
             x = self.successor(x)
 
-    def reverse_inorder_walk(self, x=None):
+    def reverseInorderWalk(self, x=None):
         if x is None:
             x = self.root
         x = self.maximum()
@@ -182,17 +183,17 @@ class RedBlackTree:
     def is_empty(self):
         return bool(self.root)
 
-    def black_height(self, x=None):
+    def blackHeight(self, x=None):
         if x is None:
             x = self.root
         height = 0
         while x:
             x = x.left
-            if not x or x.is_black():
+            if not x or x.isBlack():
                 height += 1
         return height
 
-    def __left_rotate(self, x):
+    def leftRotate(self, x):
         if not x.right:
             raise "x.right is nil!"
         y = x.right
@@ -210,7 +211,7 @@ class RedBlackTree:
         y.left = x
         x.parent = y
 
-    def __right_rotate(self, x):
+    def rightRotate(self, x):
         if not x.left:
             raise "x.left is nil!"
         y = x.left
@@ -228,7 +229,7 @@ class RedBlackTree:
         y.right = x
         x.parent = y
 
-    def __insert_helper(self, z):
+    def insertHelper(self, z):
         y = NilNode.instance()
         x = self.root
         while x:
@@ -249,14 +250,14 @@ class RedBlackTree:
 
         self.size += 1
 
-    def __delete_fixup(self, x):
+    def deleteFixup(self, x):
         while x != self.root and x.color == Node.BLACK:
             if x == x.parent.left:
                 w = x.parent.right
                 if w.color == Node.RED:
                     w.color = Node.BLACK
                     x.parent.color = Node.RED
-                    self.__left_rotate(x.parent)
+                    self.leftRotate(x.parent)
                     w = x.parent.right
                 if w.left.color == Node.BLACK and w.right.color == Node.BLACK:
                     w.color = Node.RED
@@ -265,19 +266,19 @@ class RedBlackTree:
                     if w.right.color == Node.BLACK:
                         w.left.color = Node.BLACK
                         w.color = Node.RED
-                        self.__right_rotate(w)
+                        self.rightRotate(w)
                         w = x.parent.right
                     w.color = x.parent.color
                     x.parent.color = Node.BLACK
                     w.right.color = Node.BLACK
-                    self.__left_rotate(x.parent)
+                    self.leftRotate(x.parent)
                     x = self.root
             else:
                 w = x.parent.left
                 if w.color == Node.RED:
                     w.color = Node.BLACK
                     x.parent.color = Node.RED
-                    self.__right_rotate(x.parent)
+                    self.rightRotate(x.parent)
                     w = x.parent.left
                 if w.right.color == Node.BLACK and w.left.color == Node.BLACK:
                     w.color = Node.RED
@@ -286,12 +287,12 @@ class RedBlackTree:
                     if w.left.color == Node.BLACK:
                         w.right.color = Node.BLACK
                         w.color = Node.RED
-                        self.__left_rotate(w)
+                        self.leftRotate(w)
                         w = x.parent.left
                     w.color = x.parent.color
                     x.parent.color = Node.BLACK
                     w.left.color = Node.BLACK
-                    self.__right_rotate(x.parent)
+                    self.rightRotate(x.parent)
                     x = self.root
         x.color = Node.BLACK
 
