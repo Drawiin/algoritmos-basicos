@@ -64,6 +64,7 @@ class RBT:
                     x.parent.color = Node.BLACK
                     y.color = Node.BLACK
                     x.parent.parent.color = Node.RED
+                    print("!!!Recolorindo P[{}] P[{}] V[{}]".format(x.parent.key, y.key, x.parent.parent.key))
                     # passa a responsa pro avô
                     x = x.parent.parent
                 # tio preto rotaciona
@@ -243,12 +244,15 @@ class RBT:
         # se a arvore etiver vazia o nó a ser inserido vira a raiz
         if not y:
             self.root = z
+            print("--->inserindo {} na raiz".format(z.key))
         # se a árvore não for vazia ele verifica se o nó será inserido na esquerda ou na direita
         else:
             if z.key < y.key:
                 y.left = z
+                print("--->Inserindo {} a esquerda de {}".format(z.key, y.key))
             else:
                 y.right = z
+                print("--->Inserindo {} a direita de {}".format(z.key, y.key))
 
         self.size += 1
 
