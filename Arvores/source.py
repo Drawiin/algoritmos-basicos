@@ -12,6 +12,14 @@ class Node:
         self.right = NilNode.instance()
         self.parent = NilNode.instance()
 
+    def __str__(self, level=0, indent="   "):
+        s = level * indent + str(self.key)
+        if self.left:
+            s = s + "\n" + self.left.__str__(level + 1, indent)
+        if self.right:
+            s = s + "\n" + self.right.__str__(level + 1, indent)
+        return s
+
     def __nonzero__(self):
         return True
 
@@ -42,38 +50,37 @@ class NilNode(Node):
         return False
 
 
-class RBT:
+class RedBlackTree:
     def __init__(self):
         self.root = NilNode.instance()
         self.size = 0
 
-    def __add(self, key):
-        self.__insert(Node(key))
+    def __str__(self):
+        return "Tamanho da árvore" + " " + str(self.size) + "\n" + str(self.root)
 
-    def __insert(self, x):
+    def add(self, key):
+        self.insert(Node(key))
+
+    def insert(self, x):
         # insere o nó na arvore
-        self.__insertHelper(x)
+        self.insertHelper(x)
 
+        # x.color = Node.RED
         while x != self.root and x.parent.color == Node.RED:
-            # se o pai for filho a esquerda do avô
             if x.parent == x.parent.parent.left:
-                # y é o tio
                 y = x.parent.parent.right
-                # Tio vermelho Inverte
                 if y and y.color == Node.RED:
                     x.parent.color = Node.BLACK
                     y.color = Node.BLACK
                     x.parent.parent.color = Node.RED
-                    # passa a responsa pro avô
                     x = x.parent.parent
-                # tio preto rotaciona
                 else:
                     if x == x.parent.right:
                         x = x.parent
-                        self.__leftRotate(x)
+                        self.leftRotate(x)
                     x.parent.color = Node.BLACK
                     x.parent.parent.color = Node.RED
-                    self.__rightRotate(x.parent.parent)
+                    self.rightRotate(x.parent.parent)
             else:
                 y = x.parent.parent.left
                 if y and y.color == Node.RED:
@@ -84,17 +91,17 @@ class RBT:
                 else:
                     if x == x.parent.left:
                         x = x.parent
-                        self.__rightRotate(x)
+                        self.rightRotate(x)
                     x.parent.color = Node.BLACK
                     x.parent.parent.color = Node.RED
-                    self.__leftRotate(x.parent.parent)
+                    self.leftRotate(x.parent.parent)
         self.root.color = Node.BLACK
 
     def delete(self, z):
         if not z.left or not z.right:
             y = z
         else:
-            y = self.__successor(z)
+            y = self.successor(z)
         if not y.left:
             x = y.right
         else:
@@ -132,7 +139,7 @@ class RBT:
             x = x.right
         return x
 
-    def __successor(self, x):
+    def successor(self, x):
         if x.right:
             return self.minimum(x.right)
         y = x.parent
@@ -141,7 +148,7 @@ class RBT:
             y = y.parent
         return y
 
-    def __predecessor(self, x):
+    def predecessor(self, x):
         if x.left:
             return self.maximum(x.left)
         y = x.parent
@@ -150,21 +157,21 @@ class RBT:
             y = y.parent
         return y
 
-    def __inorderWalk(self, x=None):
+    def inorder_walk(self, x=None):
         if x is None:
             x = self.root
         x = self.minimum()
         while x:
             yield x.key
-            x = self.__successor(x)
+            x = self.successor(x)
 
-    def __reverseInorderWalk(self, x=None):
+    def reverseInorderWalk(self, x=None):
         if x is None:
             x = self.root
         x = self.maximum()
         while x:
             yield x.key
-            x = self.__predecessor(x)
+            x = self.predecessor(x)
 
     def search(self, key, x=None):
         if x is None:
@@ -176,10 +183,10 @@ class RBT:
                 x = x.right
         return x
 
-    def __isEmpty(self):
+    def is_empty(self):
         return bool(self.root)
 
-    def __blackHeight(self, x=None):
+    def blackHeight(self, x=None):
         if x is None:
             x = self.root
         height = 0
@@ -189,9 +196,9 @@ class RBT:
                 height += 1
         return height
 
-    def __leftRotate(self, x):
+    def leftRotate(self, x):
         if not x.right:
-            raise "x.right é nullo!"
+            raise "x.right is nil!"
         y = x.right
         x.right = y.left
         if y.left:
@@ -204,11 +211,10 @@ class RBT:
                 x.parent.left = y
             else:
                 x.parent.right = y
-        print("[Rotação a esquerda de {} ao redor de {}]".format(x.key, y.key))
         y.left = x
         x.parent = y
 
-    def __rightRotate(self, x):
+    def rightRotate(self, x):
         if not x.left:
             raise "x.left is nil!"
         y = x.left
@@ -223,11 +229,11 @@ class RBT:
                 x.parent.left = y
             else:
                 x.parent.right = y
-        print("[Rotação a direita de {} ao redor de {}]".format(x.key, y.key))
         y.right = x
         x.parent = y
 
-    def __insertHelper(self, z):
+
+    def insertHelper(self, z):
         ''' Insere um nó na árvore '''
         y = NilNode.instance()
         x = self.root
@@ -259,7 +265,7 @@ class RBT:
                 if w.color == Node.RED:
                     w.color = Node.BLACK
                     x.parent.color = Node.RED
-                    self.__leftRotate(x.parent)
+                    self.leftRotate(x.parent)
                     w = x.parent.right
                 if w.left.color == Node.BLACK and w.right.color == Node.BLACK:
                     w.color = Node.RED
@@ -268,19 +274,19 @@ class RBT:
                     if w.right.color == Node.BLACK:
                         w.left.color = Node.BLACK
                         w.color = Node.RED
-                        self.__rightRotate(w)
+                        self.rightRotate(w)
                         w = x.parent.right
                     w.color = x.parent.color
                     x.parent.color = Node.BLACK
                     w.right.color = Node.BLACK
-                    self.__leftRotate(x.parent)
+                    self.leftRotate(x.parent)
                     x = self.root
             else:
                 w = x.parent.left
                 if w.color == Node.RED:
                     w.color = Node.BLACK
                     x.parent.color = Node.RED
-                    self.__rightRotate(x.parent)
+                    self.rightRotate(x.parent)
                     w = x.parent.left
                 if w.right.color == Node.BLACK and w.left.color == Node.BLACK:
                     w.color = Node.RED
@@ -289,72 +295,26 @@ class RBT:
                     if w.left.color == Node.BLACK:
                         w.right.color = Node.BLACK
                         w.color = Node.RED
-                        self.__leftRotate(w)
+                        self.leftRotate(w)
                         w = x.parent.left
                     w.color = x.parent.color
                     x.parent.color = Node.BLACK
                     w.left.color = Node.BLACK
-                    self.__rightRotate(x.parent)
+                    self.rightRotate(x.parent)
                     x = self.root
         x.color = Node.BLACK
 
-    def insere(self, key):
-        self.__add(key)
-
-    def insereVetor(self, array):
-        for i in array:
-            self.insere(i)
-
-    def emOrdem(self):
-        self.__inOrder(self.root)
-
-    def __inOrder(self, node):
-        if not node:
-            print("@", end="")
-        else:
-            print("(", end="")
-            self.__inOrder(node.left)
-            print(node.key, end="")
-            self.__inOrder(node.right)
-            print(")", end="")
-
-    def preOrdem(self):
-        self.__preOrder(self.root)
-
-    def __preOrder(self, node):
-        if not node:
-            print("@", end="")
-        else:
-            print("(", end="")
-            print(node.key, end="")
-            self.__preOrder(node.left)
-            self.__preOrder(node.right)
-            print(")", end="")
-
-    def posOrdem(self):
-        self.__preOrder(self.root)
-
-    def __posOrder(self, node):
-        if not node:
-            print("@", end="")
-        else:
-            print("(", end="")
-            print(node.key, end="")
-            self.__posOrder(node.left)
-            self.__posOrder(node.right)
-            print(node.key, end="")
-            print(")", end="")
-
-
 
 if __name__ == "__main__":
-    tree = RBT()
-    numbers = [10, 3, 7, 4, 20, 15]
-    tree.insereVetor(numbers)
-    print("\n","="*20,"Em Ordem","="*20, end="\n\n")
-    tree.emOrdem()
-    print("\n", "="*20,"Pré Ordem","="*20, end="\n\n")
-    tree.preOrdem()
-    print("\n", "="*20,"Pós Ordem","="*20, end="\n\n")
-    tree.posOrdem()
+    tree = RedBlackTree()
+    tree.add(10)
+    tree.add(3)
+    tree.add(7)
+    tree.add(4)
+    tree.add(20)
+    tree.add(15)
 
+    print(tree)
+
+    for key in tree.inorder_walk():
+        print("key = %s" % key)
