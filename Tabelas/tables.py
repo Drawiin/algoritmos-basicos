@@ -10,7 +10,7 @@ class Cell:
         self.values[0] += value
 
     def show(self):
-        print(f"{self.name}    {self.values[ABS_FREQUENCY]}{' '*21}{self.values[RELATIVE_FREQUENCY]}")
+        print(f"{self.name}    |{self.values[ABS_FREQUENCY]}{' '*21}|{self.values[RELATIVE_FREQUENCY]}")
 
 class Table:
     def __init__(self, rows=[]):
@@ -30,7 +30,7 @@ class Table:
         pass
 
     def show(self):
-        print('NAME FREQUÊNCIA ABSOLUTA  FREQUÊNCIA RELATIVA')
+        print('NAME |FREQUÊNCIA ABSOLUTA  |FREQUÊNCIA RELATIVA')
         for i in self.rows:
             i.show()
 
