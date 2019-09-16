@@ -47,7 +47,7 @@ def desempilhaExpressao(pilha):
                 acumulador += int(topoDaPilha) + int(pilha.pop())
             else:
                 pilha.pop()
-                acumulador += int(topoDaPilha) - int(pilha.pop())
+                acumulador += int(pilha.pop()) - int(topoDaPilha) 
         else:
             if topoDaPilha == '+':
                 acumulador += int(pilha.pop())
