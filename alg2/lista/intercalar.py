@@ -16,7 +16,7 @@ def intercalaEmOrdem(lista1, lista2):
 
     return intercalada
 
-lista1 = [1, 9, 8, 7, 1, 2]
-lista2 = [3,3,3,1,2]
+lista1 = [2, 4, 6, 8, 10]
+lista2 = [1, 3, 5, 7, 9]
 
 print(intercalaEmOrdem(lista1, lista2))
