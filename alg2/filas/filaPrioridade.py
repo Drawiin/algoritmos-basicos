@@ -4,6 +4,30 @@ class Pessoa:
         self.prioridade = prioridade
 
 
+class FilaPrioritaria:
+    def __init__(self):
+        self.fila = []
+
+    def remove(self):
+        if not self.fila.isEmpty():
+            return self.fila.pop(0)
+
+    def isEmpty(self):
+        return not len(self.fila) > 0
+
+
+class filaComum:
+    def __init__(self):
+        self.fila = []
+
+    def remove(self):
+        if not self.fila.isEmpty():
+            return self.fila.pop(0)
+
+    def isEmpty(self):
+        return not len(self.fila) > 0
+
+
 class Fila:
     def __init__(self):
         self.filaComum = []
