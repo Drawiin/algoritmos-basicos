@@ -2,3 +2,5 @@
 # nvm -> nodejs
 # vscode -> instalar extensões code --install-extension 
 # git -> (config user and emal -> create ssh key)
+# insomnia
+# postegres
