@@ -1,7 +1,11 @@
 # Um script que uso para intalar todos os programas que utilizo no linux(Ubunto)
+# build-essesntial
+# git
 # nvm -> nodejs
 # vscode -> instalar extensões code --install-extension 
-# git -> (config user and emal -> create ssh key)
+# qbittorent
+# spotfy
+# chrome
 # insomnia
 
 echo "Atualizando repositórios.."
@@ -38,7 +42,3 @@ sudo apt-get install insomnia
 echo "intall NVM"
 
 if wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
-then
-    export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-fi
