@@ -1,44 +1,65 @@
 # Um script que uso para intalar todos os programas que utilizo no linux(Ubunto)
+
+# -y na frente de tudo
+
+# atuazliar os ppas
+echo 'iniciando.........'
+if !sudo apt update -y
+    echo 'ops alguma coisa deu errado.....'
+fi
 # build-essesntial
+apt install build-essential -y
+
 # git
-# nvm -> nodejs
-# vscode -> instalar extensões code --install-extension 
-# qbittorent
-# spotfy
+apt install git -y
+
+# curl
+apt install curl -y
+
+#wget
+
+apt install wget -y
+
 # chrome
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+apt install ./google-chrome-stable_current_amd64.deb
+
+# nvm
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
+# nodejs with nvm
+# Open JDK
+# golang
+# ubunto kvm
+# vscode
+snap install code --classic -y
+
+# qbittorent
+add-apt-repository ppa:qbittorrent-team/qbittorrent-stable -y
+apt-get update && sudo apt-get install qbittorrent -y
+
+# spotfy
+snap install spotify -y
+
+# vlc
+snap install vlc -y
+
 # insomnia
+snap install insomnia -y
 
-echo "Atualizando repositórios.."
-if ! apt update
-then
-    echo “Não foi possível atualizar os repositórios. Verifique seu arquivo /etc/apt/sources.list”
-    exit 1
-fi
+# Intelij idead Comminity
+sudo snap install intellij-idea-community --classic -y
 
-echo "intalliing chrome"
-if wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-then
-    dpkg -i google-chrome-stable_current_amd64.deb
-fi
+# postgreSQL
+sudo apt install postgresql postgresql-contrib -y
 
-echo "installing Vscode"
-if wget https://go.microsoft.com/fwlink/?LinkID=760868
-then
-    apt install ./google-chrome-stable_current_amd64.deb
-fi
+# oh my z shell
 
 
-echo "intallando insomnia"
 
-echo "deb https://dl.bintray.com/getinsomnia/Insomnia /" \
-    | sudo tee -a /etc/apt/sources.list.d/insomnia.list
 
-wget --quiet -O - https://insomnia.rest/keys/debian-public.key.asc \
-    | sudo apt-key add -
 
-sudo apt-get update
-sudo apt-get install insomnia
 
-echo "intall NVM"
-
-if wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+    
