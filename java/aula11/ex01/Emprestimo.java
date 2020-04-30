@@ -1,6 +1,5 @@
-package com.company;
+package aula11.ex01;
 
-import java.util.Date;
 import java.util.Scanner;
 
 public class Emprestimo {

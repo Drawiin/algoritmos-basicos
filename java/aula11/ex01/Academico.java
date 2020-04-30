@@ -1,4 +1,4 @@
-package com.company;
+package aula11.ex01;
 
 import java.util.Scanner;
 
