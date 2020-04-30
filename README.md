@@ -9,6 +9,8 @@ Esses algoritmos foram desenvolvidos com as seguintes tecnologias:
 - [Node.js](https://nodejs.org/en/)
 - [Axios](https://github.com/axios/axios)
 - [Python](https://www.python.org/)
+- [Java](https://openjdk.java.net/)
+- [Bash Scipt](https://devdocs.io/bash/)
 
 ## 💻 Projeto
 
