@@ -1,4 +1,6 @@
-package aula11.ex01;
+package aula11.ex02;
+
+import java.util.Scanner;
 
 public class Emprestimo {
     private Livro livro;
@@ -38,7 +40,16 @@ public class Emprestimo {
         this.hora = hora;
     }
 
-    public void realizarEmprestimo(){
+    public void realizarEmprestimo(Academico academico, Livro livro){
+        Scanner scanner = new Scanner(System.in);
+        this.setAcademico(academico);
+        this.setLivro(livro);
+        System.out.println("Cadastrando emprstimo");
 
+        System.out.println("Data");
+        this.setData(scanner.next());
+
+        System.out.println("Hora");
+        this.setHora(scanner.next());
     }
 }

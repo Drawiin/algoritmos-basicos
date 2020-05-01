@@ -1,4 +1,4 @@
-package aula11.ex01;
+package aula11.ex02;
 
 public class Biblioteca {
     public static void main(String[] args) {
@@ -21,6 +21,8 @@ public class Biblioteca {
         for(int i = 0; i < emprestimos.length; i++){
             System.out.println("Emprestimo: " + (i + 1));
             emprestimos[i] = new Emprestimo();
+
+            emprestimos[i].realizarEmprestimo(academicos[i], livros[i]);
         }
     }
 }
