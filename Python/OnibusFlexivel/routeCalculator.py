@@ -57,3 +57,4 @@ if __name__ == "__main__":
     print(result[0])
     print('Com custo de ')
     print(result[1])
+    input('Pressione qualquer tecla para sair')
