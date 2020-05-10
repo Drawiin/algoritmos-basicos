@@ -1,6 +1,7 @@
 from math import sqrt
 from math import factorial
 from itertools import permutations
+import os
 
 
 def calculateDistance(pointA, pointB):
@@ -32,29 +33,106 @@ def readPoint(index):
 
 
 if __name__ == "__main__":
-    pathLength = int(input('Quantos pontos o caminho do ônibus tem ? '))
-    passangersLength = int(input('Quantos pontos de passageiros tem ?'))
-    print('Entre com os pontos da rota do ônibus')
+    print('+----------------------------------------------+')
+    print('|                                              |')
+    print('| Quantos pontos o caminho do ônibus tem ?     |')
+    print('|                                              |')
+    print('+----------------------------------------------+')
+    pathLength = int(input('>'))
+    
+    os.system('cls' if os.name == 'nt' else 'clear')
+    print('+----------------------------------------------+')
+    print('|                                              |')
+    print('| Quantos pontos de passageiros tem ?          |')
+    print('|                                              |')
+    print('+----------------------------------------------+')
+    passangersLength = int(input('>'))
+
+    os.system('cls' if os.name == 'nt' else 'clear')
+    print('+----------------------------------------+')
+    print('|                                        |')
+    print('| Entre com os pontos da rota do ônibus  |')
+    print('|                                        |')
+    print('+----------------------------------------+')
+    print('| | | | | | | | | | | | | | | | | | | | | ')
+    print('V V V V V V V V V V V V V V V V V V V V V ')
+    print('')
     path = [readPoint(i) for i in range(pathLength)]
-    print('Entre com os pontos dos passageiros')
+
+    os.system('cls' if os.name == 'nt' else 'clear')
+    print('+----------------------------------------------+')
+    print('|                                              |')
+    print('| Entre com os pontos da rota dos passageiros  |')
+    print('|                                              |')
+    print('+----------------------------------------------+')
+    print('| | | | | | | | | | | | | | | | | | | | | | | | ')
+    print('V V V V V V V V V V V V V V V V V V V V V V V V ')
+    print('')
     passangers = [readPoint(i) for i in range(passangersLength)]
 
-    print("pontos  da rota do ônibus")
+    os.system('cls' if os.name == 'nt' else 'clear')
+    print('+----------------------------------------------+')
+    print('|                                              |')
+    print('|         pontos do caminho do ônibus          |')
+    print('|                                              |')
+    print('+----------------------------------------------+')
+    print('| | | | | | | | | | | | | | | | | | | | | | | | ')
+    print('V V V V V V V V V V V V V V V V V V V V V V V V ')
+    print('')
     print(path)
-
-    print("pontos  da rota dos passageiros")
+    
+    print('')
+    print('+----------------------------------------------+')
+    print('|                                              |')
+    print('|         pontos de passageiros                |')
+    print('|                                              |')
+    print('+----------------------------------------------+')
+    print('| | | | | | | | | | | | | | | | | | | | | | | | ')
+    print('V V V V V V V V V V V V V V V V V V V V V V V V ')
+    print('')
     print(passangers)
 
-    input('Pressione enter para continuar')
+    print('')
+    print('+----------------------------------------------+')
+    print('|                                              |')
+    print('|   Pressione Enter para continuar             |')
+    print('|                                              |')
+    print('+----------------------------------------------+')
+    input('')
 
     route = path + passangers
 
     if(len(route) > 8):
-        input('A rota que você está prestes a calcular contem vários pontos\nisso pode levar vários minutos ........ ou anos\npressione enter para continuar')
-    print('calculando......', factorial(len(route)), 'rotas possiveis')
+        os.system('cls' if os.name == 'nt' else 'clear')
+        print('+--------------------------------------------------------------------+')
+        print('|                                                                    |')
+        print('|    A rota que você está prestes a calcular contem vários pontos    |')
+        print('|    isso pode levar vários minutos........ou anos                   |')
+        print('|    pressione Enter para continuar                                  |')
+        print('|                                                                    |')
+        print('+--------------------------------------------------------------------+')
+        input('')
+
+    os.system('cls' if os.name == 'nt' else 'clear')
+    print('calculando todas as', factorial(len(route)), 'rotas possiveis.................')
     result = calculateBestRoute(route)
-    print('A melhor rota encontrada foi')
+    print('+----------------------------------------------+')
+    print('|                                              |')
+    print('| A melhor rota encontrada foi                 |')
+    print('|                                              |')
+    print('+----------------------------------------------+')
+    print('| | | | | | | | | | | | | | | | | | | | | | | | ')
+    print('V V V V V V V V V V V V V V V V V V V V V V V V ')
+    print('')
     print(result[0])
+    print('')
     print('Com custo de ')
     print(result[1])
-    input('Pressione qualquer tecla para sair')
+
+    print('')
+    print('+----------------------------------------------+')
+    print('|                                              |')
+    print('|   Pressione Enter para Para Encerrar         |')
+    print('|                                              |')
+    print('+----------------------------------------------+')
+    input('')
