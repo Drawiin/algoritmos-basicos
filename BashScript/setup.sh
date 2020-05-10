@@ -35,8 +35,16 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
 # nodejs with nvm
+echo '============================Instalando NodeJS===================================='
+nvm install --lts
 # Open JDK
+echo '============================Instalando openJDK===================================='
+apt-get install openjdk-8-jdk
 # golang
+echo '============================Golang===================================='
+add-apt-repository ppa:longsleep/golang-backports
+apt update
+apt install golang-go -y
 # ubunto kvm
 # vscode
 echo '============================ instalando vscode===================================='
