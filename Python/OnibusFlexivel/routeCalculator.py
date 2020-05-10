@@ -33,6 +33,14 @@ def readPoint(index):
 
 
 if __name__ == "__main__":
+    print('')
+    print('+----------------------------------------------+')
+    print('|                                              |')
+    print('|   Pressione Enter para começar               |')
+    print('|                                              |')
+    print('+----------------------------------------------+')
+    input('')
+
     print('+----------------------------------------------+')
     print('|                                              |')
     print('| Quantos pontos o caminho do ônibus tem ?     |')
