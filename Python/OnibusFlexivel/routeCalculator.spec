@@ -4,7 +4,7 @@ block_cipher = None
 
 
 a = Analysis(['routeCalculator.py'],
-             pathex=['C:\\Users\\vini6\\Documentos\\algoritmos-basicos\\Python\\OnibusFlexivel'],
+             pathex=['/home/vinicius/Documents/projects/algoritmos-basicos/Python/OnibusFlexivel'],
              binaries=[],
              datas=[],
              hiddenimports=[],

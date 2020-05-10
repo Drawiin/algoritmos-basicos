@@ -4,9 +4,8 @@
 
 # atuazliar os ppas
 echo 'iniciando.........'
-if !sudo apt update -y
-    echo 'ops alguma coisa deu errado.....'
-fi
+sudo apt update -y
+
 # build-essesntial
 apt install build-essential -y
 
