@@ -30,12 +30,23 @@ class BigNum():
             self.head = BigDigit(value)
             self.head.next = oldHead
 
+    def append(self, value):
+        if self.head is None:
+            self.head = BigDigit(value)
+        else:
+            current = self.head
+            while current.next is not None:
+                current = current.next
+
+            current.next = BigDigit(value)
+
     def readNumber(self):
         number = input().strip()
         if not number.isnumeric():
             print('Somente numeros são permitidos')
             exit(0)
         for digit in number:
+
             self.insert(int(digit))
 
 
@@ -43,14 +54,62 @@ class BigNumCalculator():
     def __init__(self):
         self.base = 10
 
-    def BigSum(self, number1, number2):
+    def sumCarry(self, result):
+        return result // self.base
+
+    def sumFinalResult(self, result):
+        return result % self.base
+
+    def bigSum(self, number1, number2):
         result = BigNum()
-        number1 = 10
+        current1 = number1.head
+        current2 = number2.head
+        carry = 0
+        while current1 is not None and current2 is not None:
+            parcialResult = current1.value + current2.value + carry
+            carry = self.sumCarry(parcialResult)
+            finalResult = self.sumFinalResult(parcialResult)
+
+            result.append(finalResult)
+            current1 = current1.next
+            current2 = current2.next
+
+        while current1 is not None:
+            parcialResult = current1.value + carry
+            carry = self.sumCarry(parcialResult)
+            finalResult = self.sumFinalResult(parcialResult)
+
+            result.append(finalResult)
+
+            current1 = current1.next
+
+        while current2 is not None:
+            parcialResult = current2.value + carry
+            carry = self.sumCarry(parcialResult)
+            finalResult = self.sumFinalResult(parcialResult)
+
+            result.append(finalResult)
+
+            current2 = current2.next
+
+        if carry > 0:
+            result.append(carry)
+
+        return result
+
+    def bigSubtraction(self, number1, number2):
 
 
-number = BigNum()
-number.readNumber()
-print(number)
+number1 = BigNum()
+number2 = BigNum()
+
+number1.readNumber()
+number2.readNumber()
+
+calculator = BigNumCalculator()
+result = calculator.bigSum(number1, number2)
+
+print(result)
 
 
 # BASE = 10
