@@ -18,7 +18,7 @@ class BigNum():
         string = ''
         current = self.head
         while current is not None:
-            string = f'{current}' + string
+            string = str(current) + string
             current = current.next
         return string
 
