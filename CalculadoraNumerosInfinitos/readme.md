@@ -12,6 +12,8 @@ variaveis de ambiente ou path
 
 ## Execução
 
+Em um terminal bash powershel, cmd ou outro basta utilizar o comando:
+
 `python calculator.py`
 
 ou
@@ -30,4 +32,6 @@ ou até
 
 - Na operação de divisão caso o segundo numero seja 0 será retornado -1
 
-- A abordagem escolida para divisão e multiplixação é extremamente inceficiente, e como python não é uma linguagem focada em velocidade, reconsidere realizar essas operações com números muito grandes
+- A abordagem escolida para divisão e multiplixação é extremamente inceficiente, e como python não é uma
+  linguagem focada em velocidade, reconsidere realizar essas operações com números muito grandes
+  Elas serão conclidas, mais é provavel que tomem um tempo significativo.
