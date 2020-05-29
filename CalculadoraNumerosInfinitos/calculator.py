@@ -40,13 +40,11 @@ class BigNum():
 
             current.next = BigDigit(value)
 
-    def readNumber(self):
-        number = input().strip()
+    def readNumber(self, number):
         if not number.isnumeric():
             print('Somente numeros são permitidos')
             exit(0)
         for digit in number:
-
             self.insert(int(digit))
 
 
@@ -150,7 +148,7 @@ class BigNumCalculator():
         result = BigNum()
         result.insert(0)
 
-        if number2.next is None and number2.value == 0:
+        if number2.head.next is None and number2.head.value == 0:
             return -1
 
         while self.bigSubtraction(number1, number2) != -1:
@@ -160,30 +158,34 @@ class BigNumCalculator():
         return result
 
 
-number1 = BigNum()
-number2 = BigNum()
+if __name__ == "__main__":
+    entry = ""
+    calculator = BigNumCalculator()
+    while True:
+        number1 = BigNum()
+        number2 = BigNum()
+        entry = input('> ').strip()
+        if entry == "q":
+            break
+        entry = entry.split(' ')
+        if len(entry) != 3:
+            print('> [Entrada incorreta]')
+        else:
+            number1.readNumber(entry[0])
+            op = entry[1]
+            number2.readNumber(entry[2])
 
-number1.readNumber()
-number2.readNumber()
+            if op == '+':
+                print('>', calculator.bigSum(number1, number2))
 
-calculator = BigNumCalculator()
-result = calculator.bigSum(number1, number2)
+            elif op == '-':
+                print('>', calculator.bigSubtraction(number1, number2))
 
-print('SUM')
-print(result)
+            elif op == '*':
+                print('>', calculator.bigProduct(number1, number2))
 
-result = calculator.bigSubtraction(number1, number2)
+            elif op == '/':
+                print('>', calculator.bigDivision(number1, number2))
 
-print('SUB')
-print(result)
-
-result = calculator.bigProduct(number1, number2)
-
-print('PROD')
-print(result)
-
-
-result = calculator.bigDivision(number1, number2)
-
-print('DIV')
-print(result)
+            else:
+                print('> [Operação Inválida]')
