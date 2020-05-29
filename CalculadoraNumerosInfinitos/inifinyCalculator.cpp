@@ -671,8 +671,8 @@ int main()
 	HugeIntLL* d = new HugeIntLL(); 
 	HugeIntLL* q = new HugeIntLL(); 
 
-	string s1 = "20"; 
-	string s2 = "2"; 
+	string s1 = "2"; 
+	string s2 = "20"; 
 
 	for (int i = 0; i < s1.length(); i++) 
 		m->insertInEnd(s1.at(i) - '0'); 
