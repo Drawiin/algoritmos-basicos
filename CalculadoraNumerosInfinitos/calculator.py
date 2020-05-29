@@ -150,6 +150,9 @@ class BigNumCalculator():
         result = BigNum()
         result.insert(0)
 
+        if number2.next is None and number2.value == 0:
+            return -1
+
         while self.bigSubtraction(number1, number2) != -1:
             result = self.bigSum(result, one)
             number1 = self.bigSubtraction(number1, number2)
