@@ -14,15 +14,13 @@ variaveis de ambiente ou path
 
 `python calculator.py`
 
-' '
-
 ou
 
-' python3 calculator.py '
+`python3 calculator.py`
 
 ou até
 
-' python3.8 calculator.py '
+`python3.8 calculator.py`
 
 # Pontos importante
 
