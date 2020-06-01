@@ -73,8 +73,7 @@ sudo apt install vlc -y
 
 # Intelij idead Comminity
 echo '============================ Intellijidea ===================================='
-sudo snap install intellij-idea-community 
-
+sudo snap install intellij-idea-community --classic
 
 
 
