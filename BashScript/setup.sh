@@ -34,18 +34,6 @@ apt-get install apt-transport-https
 apt-get update
 apt-get install code -y
 
-# nvm
-echo '============================Instalando nvm===================================='
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
-
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-
-# nodejs with nvm
-echo '============================Instalando NodeJS===================================='
-nvm install --lts
-
 # Open JDK
 echo '============================Instalando openJDK===================================='
 apt install openjdk-8-jdk -y
@@ -76,12 +64,6 @@ wget --quiet -O - https://insomnia.rest/keys/debian-public.key.asc \
 sudo apt-get update
 sudo apt-get install insomnia -y
 
-
-# chrome
-echo '============================Instalando chrome===================================='
-wget -q -O -- https://dl.google.com/linux/linux_signing_key.pub && sudo apt-key add --
-sudo sh -c ‘echo “deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main” >> /etc/apt/sources.list.d/google-chrome.list’
-sudo apt update && sudo apt install google-chrome-stable -y
 
 # vlc
 echo '============================ vlc ===================================='
