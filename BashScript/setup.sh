@@ -4,7 +4,7 @@
 
 # atuazliar os ppas
 echo 'iniciando.........'
-echo '============================atulizando ppas===================================='
+echo '============================atualizando ppas===================================='
 sudo apt update -y
 
 # build-essesntial
@@ -23,14 +23,19 @@ apt install curl -y
 echo '============================Instalando Wget===================================='
 apt install wget -y
 
-# chrome
-echo '============================Instalando chrome===================================='
-wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-apt install ./google-chrome-stable_current_amd64.deb -y
+# vscode
+echo '============================ instalando vscode===================================='
+curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
+
+sudo install -o root -g root -m 644 packages.microsoft.gpg /usr/share/keyrings/
+
+sh -c 'echo "deb [arch=amd64 signed-by=/usr/share/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
+apt-get install apt-transport-https
+apt-get update
+apt-get install code -y
 
 # nvm
 echo '============================Instalando nvm===================================='
-
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
 
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
@@ -40,18 +45,10 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 # nodejs with nvm
 echo '============================Instalando NodeJS===================================='
 nvm install --lts
+
 # Open JDK
 echo '============================Instalando openJDK===================================='
-apt-get install openjdk-8-jdk
-# golang
-echo '============================Golang===================================='
-add-apt-repository ppa:longsleep/golang-backports
-apt update
-apt install golang-go -y
-# ubunto kvm
-# vscode
-echo '============================ instalando vscode===================================='
-snap install code --classic
+apt install openjdk-8-jdk -y
 
 # qbittorent
 echo '============================instalando qbittorrent===================================='
@@ -60,25 +57,41 @@ apt-get update && sudo apt-get install qbittorrent -y
 
 # spotfy
 echo '============================  spotfy ===================================='
-snap install spotify
+curl -sS https://download.spotify.com/debian/pubkey.gpg | sudo apt-key add - 
+echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
+sudo apt-get update && sudo apt-get install spotify-client -y
 
-# vlc
-echo '============================ vlc ===================================='
-snap install vlc
 
 # insomnia
 echo '============================ insomnia ===================================='
-snap install insomnia
+# Add to sources
+echo "deb https://dl.bintray.com/getinsomnia/Insomnia /" \
+    | sudo tee -a /etc/apt/sources.list.d/insomnia.list
+
+# Add public key used to verify code signature
+wget --quiet -O - https://insomnia.rest/keys/debian-public.key.asc \
+    | sudo apt-key add -
+
+# Refresh repository sources and install Insomnia
+sudo apt-get update
+sudo apt-get install insomnia -y
+
+
+# chrome
+echo '============================Instalando chrome===================================='
+wget -q -O -- https://dl.google.com/linux/linux_signing_key.pub && sudo apt-key add --
+sudo sh -c ‘echo “deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main” >> /etc/apt/sources.list.d/google-chrome.list’
+sudo apt update && sudo apt install google-chrome-stable -y
+
+# vlc
+echo '============================ vlc ===================================='
+sudo add-apt-repository ppa:videolan/stable-daily
+sudo apt update
+sudo apt install vlc -y
 
 # Intelij idead Comminity
 echo '============================ Intellijidea ===================================='
-sudo snap install intellij-idea-community --classic
-
-# postgreSQL
-echo '============================PostegreSQL===================================='
-sudo apt install postgresql postgresql-contrib -y
-
-# oh my z shell
+sudo snap install intellij-idea-community 
 
 
 
