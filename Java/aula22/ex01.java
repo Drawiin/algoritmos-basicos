@@ -1,5 +1,10 @@
 package aula22;
 
+
+import aula22.ex01;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -43,8 +48,18 @@ public class ex01 extends javax.swing.JFrame {
         iSenha.setText("Senha");
 
         bEntrar.setText("Entrar");
+        bEntrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bEntrarActionPerformed(evt);
+            }
+        });
 
         bFechar.setText("Fechar");
+        bFechar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bFecharActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -93,6 +108,22 @@ public class ex01 extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void bEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bEntrarActionPerformed
+        // TODO add your handling code here:
+        String usuario = this.tUsuario.getText();
+        String senha = this.tSenha.getText();
+        if(usuario.equals("admin") && senha.equals("admin")){
+            System.out.println("Acesso Autorizado");
+        }else {
+            System.out.println("Senha Inválida");
+        }
+    }//GEN-LAST:event_bEntrarActionPerformed
+
+    private void bFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bFecharActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_bFecharActionPerformed
+    
     /**
      * @param args the command line arguments
      */
@@ -120,6 +151,7 @@ public class ex01 extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
+
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
